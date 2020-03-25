@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.buttonStartGame) {
             if (player1name.getText().length()!=0 && player2name.length()!=0) {
                 Intent intent = new Intent(this, GameActivity.class);
+                intent.putExtra("PLAYER_1_NAME",player1name.getText().toString());
+                intent.putExtra("PLAYER_2_NAME",player2name.getText().toString());
                 startActivity(intent);
             }
             else {
