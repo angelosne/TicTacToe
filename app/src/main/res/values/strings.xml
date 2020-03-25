@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TicTacToe</string>
+    <string name="textWelcomeMessage">Welcome to the Tic Tac Toe Game!</string>
+    <string name="HintPlayer1Name">Player 1 - Please enter your name</string>
+    <string name="HintPlayer2Name">Player 2 - Please enter your name</string>
+    <string name="ButtonStartGame">Start game</string>
 </resources>

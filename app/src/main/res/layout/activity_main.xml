@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Welcome to the Tic Tac Toe Game!"
+        android:text="@string/textWelcomeMessage"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,12 +32,12 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="Player 1 - Please enter your name"
+        android:hint="@string/HintPlayer1Name"
         android:inputType="textPersonName"
-        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextWelcome" />
+        app:layout_constraintTop_toBottomOf="@+id/TextWelcome"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/EditTextPlayer2"
@@ -49,21 +49,21 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="Player 2 - Please enter your name"
+        android:hint="@string/HintPlayer2Name"
         android:inputType="textPersonName"
-        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextPlayer1" />
+        app:layout_constraintTop_toBottomOf="@+id/EditTextPlayer1"
+        android:importantForAutofill="no" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonStartGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Start game"
+        android:text="@string/ButtonStartGame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
