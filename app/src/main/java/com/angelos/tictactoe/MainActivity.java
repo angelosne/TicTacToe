@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         EditText player1name = findViewById(R.id.EditTextPlayer1);
         EditText player2name = findViewById(R.id.EditTextPlayer2);
+        Bundle extras = new Bundle();
         if (v.getId() == R.id.buttonStartGame) {
             if (player1name.getText().length()!=0 && player2name.length()!=0) {
                 Intent intent = new Intent(this, GameActivity.class);
-                intent.putExtra("PLAYER_1_NAME",player1name.getText().toString());
-                intent.putExtra("PLAYER_2_NAME",player2name.getText().toString());
+                extras.putString("PLAYER_1_NAME",player1name.getText().toString());
+                extras.putString("PLAYER_2_NAME",player2name.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
             else {
