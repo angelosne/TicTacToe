@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,6 +91,54 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void play(Button button) {
+        if (isEmpty(button)) {
+            writeXorO(button);
+            if (isItAWin(button)) {
+                winnerIs();
+                disableButtons();
+            }
+            isItDraw();
+
+            changeTurn();
+        } else {
+            showToast();
+        }
+    }
+
+    private void isItDraw() {
+
+        if (!buttonX0Y0.getText().toString().isEmpty() &&
+                !buttonX0Y1.getText().toString().isEmpty() &&
+                !buttonX0Y2.getText().toString().isEmpty() &&
+                !buttonX1Y0.getText().toString().isEmpty() &&
+                !buttonX1Y1.getText().toString().isEmpty() &&
+                !buttonX1Y2.getText().toString().isEmpty() &&
+                !buttonX2Y0.getText().toString().isEmpty() &&
+                !buttonX2Y1.getText().toString().isEmpty() &&
+                !buttonX2Y2.getText().toString().isEmpty()) {
+
+            disableButtons();
+            winner.setText("Draw! Play again!");
+        }
+    }
+
+    private void disableButtons() {
+        buttonX0Y0.setEnabled(false);
+        buttonX1Y0.setEnabled(false);
+        buttonX2Y0.setEnabled(false);
+        buttonX0Y1.setEnabled(false);
+        buttonX1Y1.setEnabled(false);
+        buttonX2Y1.setEnabled(false);
+        buttonX0Y2.setEnabled(false);
+        buttonX1Y2.setEnabled(false);
+        buttonX2Y2.setEnabled(false);
+    }
+
+    private boolean isEmpty(Button button) {
+        return button.getText().length() == 0;
+    }
+
     private void writeXorO(Button button) {
         if (whichPlayerIsCurrentlyPlaying == 1) {
             button.setText("X");
@@ -99,6 +146,31 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             button.setText("O");
         }
     }
+
+    private boolean isItAWin(Button button) {
+        if (button == buttonX0Y0) {
+            return hasFirstColumn() || hasFirstRow() || hasCrossForward();
+        } else if (button == buttonX0Y1) {
+            return hasFirstColumn() || hasSecondRow();
+        } else if (button == buttonX0Y2) {
+            return hasFirstColumn() || hasThirdRow() || hasCrossBackward();
+        } else if (button == buttonX1Y0) {
+            return hasSecondColumn() || hasFirstRow();
+        } else if (button == buttonX1Y1) {
+            return hasSecondColumn() || hasSecondRow() || hasCrossForward() || hasCrossBackward();
+        } else if (button == buttonX1Y2) {
+            return hasSecondColumn() || hasThirdRow();
+        } else if (button == buttonX2Y0) {
+            return hasThirdColumn() || hasFirstRow() || hasCrossBackward();
+        } else if (button == buttonX2Y1) {
+            return hasThirdColumn() || hasSecondRow();
+        } else if (button == buttonX2Y2) {
+            return hasThirdColumn() || hasThirdRow() || hasCrossForward();
+        }
+        return false; //Εδώ δεν μπόρεσα να βάλω else
+
+    }
+
 
     private void changeTurn() {
 
@@ -108,30 +180,79 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             whichPlayerIsCurrentlyPlaying = 1;
             nextPlayer.setText(player1name + " you are next!");
-            ;
         }
     }
 
-    private boolean isEmpty(Button button) {
-        if (button.getText().length() != 0) {
-            return false;
-        } else {
-            return true;
+    private void winnerIs() {
+        if (whichPlayerIsCurrentlyPlaying == 1)
+            winner.setText(player1name + " has won the game!");
+        else {
+            winner.setText(player2name + " has won the game!");
         }
     }
+
 
     private void showToast() {
         Toast toast = Toast.makeText(this, "This button has been played. Choose another one", Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    private void play(Button button) {
-        if (isEmpty(button)) {
-            writeXorO(button);
-            changeTurn();
-        } else {
-            showToast();
-        }
+
+    private boolean hasFirstRow() {
+        if (buttonX0Y0.getText().toString().equals(buttonX1Y0.getText().toString()) && buttonX1Y0.getText().toString().equals(buttonX2Y0.getText().toString())) {
+            return true;
+        } else
+            return false;
     }
+
+    private boolean hasSecondRow() {
+        if (buttonX0Y1.getText().toString().equals(buttonX1Y1.getText().toString()) && buttonX1Y1.getText().toString().equals(buttonX2Y1.getText().toString())) {
+            return true;
+        } else
+            return false;
+    }
+
+    private boolean hasThirdRow() {
+        if (buttonX0Y2.getText().toString().equals(buttonX1Y2.getText().toString()) && buttonX1Y2.getText().toString().equals(buttonX2Y2.getText().toString())) {
+            return true;
+        } else
+            return false;
+    }
+
+    private boolean hasFirstColumn() {
+        if (buttonX0Y0.getText().toString().equals(buttonX0Y1.getText().toString()) && buttonX0Y1.getText().toString().equals(buttonX0Y2.getText().toString())) {
+            return true;
+        } else
+            return false;
+    }
+
+    private boolean hasSecondColumn() {
+        if (buttonX1Y0.getText().toString().equals(buttonX1Y1.getText().toString()) && buttonX1Y1.getText().toString().equals(buttonX1Y2.getText().toString())) {
+            return true;
+        } else
+            return false;
+    }
+
+    private boolean hasThirdColumn() {
+        if (buttonX2Y0.getText().toString().equals(buttonX2Y1.getText().toString()) && buttonX2Y1.getText().toString().equals(buttonX2Y2.getText().toString())) {
+            return true;
+        } else
+            return false;
+    }
+
+    private boolean hasCrossForward() {
+        if (buttonX0Y0.getText().toString().equals(buttonX1Y1.getText().toString()) && buttonX1Y1.getText().toString().equals(buttonX2Y2.getText().toString())) {
+            return true;
+        } else
+            return false;
+    }
+
+    private boolean hasCrossBackward() {
+        if (buttonX2Y0.getText().toString().equals(buttonX1Y1.getText().toString()) && buttonX1Y1.getText().toString().equals(buttonX0Y2.getText().toString())) {
+            return true;
+        } else
+            return false;
+    }
+
 
 }
